@@ -5,7 +5,3 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
-
-app_lucky_number:
-    path: /lucky/number
-    controller: App\Controller\LuckyController::number
