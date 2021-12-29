@@ -10,17 +10,17 @@
         <div class="row card-panel">
             <div class="col-12">
                 <form method="post" action="create">
-                    <div class="input-field col s12">
-                        <label for="name">Task Name:</label>
+                    <div class="input-field col-12">
+                        <label class="mb-3" for="name">Task Name:</label>
                         <input id="name" name="name" minlength="5" maxlength="50"
                                value="{{ task.name }}" type="text" class="validate" required>
                     </div>
-                    <div class="input-field col s12">
-                        <label for="description">Task Description:</label>
+                    <div class="input-field col-12">
+                        <label class="mb-3" for="description">Task Description:</label>
                         <input id="description" name="description" minlength="5" maxlength="50"
                                value="{{ task.description }}" type="text" class="validate" required>
                     </div>
-                    <button type="submit" class="btn">
+                    <button type="submit" class="btn btn-info btn-sm mt-3">
                         Add Task
                     </button>
                 </form>
