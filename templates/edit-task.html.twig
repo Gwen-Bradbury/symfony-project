@@ -8,7 +8,23 @@
             </div>
         </div>
         <div class="row card-panel">
-            {{ form(form) }}
+            <div class="col-12">
+                <form method="post" action="/update/{{task.id}}">
+                    <div class="input-field col s12">
+                        <label for="name">Task Name:</label>
+                        <input id="name" name="name" minlength="5" maxlength="50"
+                               value="{{ task.name }}" type="text" class="validate" required>
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="description">Task Description:</label>
+                        <input id="description" name="description" minlength="5" maxlength="50"
+                               value="{{ task.description }}" type="text" class="validate" required>
+                    </div>
+                    <button type="submit" class="btn">
+                        Edit Task
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

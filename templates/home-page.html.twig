@@ -19,7 +19,17 @@
                             </h2>
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body">
-                                    <strong> {{ task.name }} </strong> {{ task.description }}
+                                    <strong>{{ task.id }} {{ task.name }} </strong> {{ task.description }}
+                                    <button type="button">
+                                        <a href="/delete/{{ task.id }}">
+                                            Delete Task
+                                        </a>
+                                    </button>
+                                    <button type="button">
+                                        <a href="/edit/{{ task.id }}">
+                                            Edit Task
+                                        </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

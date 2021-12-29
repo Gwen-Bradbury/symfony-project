@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Task;
-use App\Repository\TaskRepository;
-use Doctrine\Persistence\ManagerRegistry;
+
+use App\Repository\Task as Repository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,75 +13,69 @@ use Symfony\Component\HttpFoundation\Response;
 class ToDo extends AbstractController
 {
     /**
-     * @Route("/all-tasks", name="all_tasks")
+     * @Route("/view-all", name="view-all")
      *
      */
-    public function show(TaskRepository $repository): Response
+    public function all(Repository $repository): Response
     {
-        return $this->render('home-page.html.twig', ['task' => $repository->findAll()]);
+        return $this->render('home-page.html.twig', ['task' => $repository->getAll()]);
     }
 
 
     /**
-     * @Route("/add-task", name="add_task")
+     * @Route("/new", name="new")
      *
      */
-    public function new(Request $request, ManagerRegistry $doctrine): Response
+    public function new(): Response
     {
-        $entityManager = $doctrine->getManager();
-        $task = new Task();
-
-        $form = $this->createFormBuilder($task)
-            ->add('name', TextType::class)
-            ->add('description', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create Task'])
-            ->getForm();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $task = $form->getData();
-
-            $entityManager->persist($task);
-            $entityManager->flush();
-        }
-        return $this->renderForm('add-task.html.twig', ['form' => $form]);
+        return $this->render('add-task.html.twig', ['task' => ['name' => '', 'description' => '']]);
     }
 
 
     /**
-     * @Route("/edit-task/{id}")
+     * @Route("/create", methods={"POST", "OPTIONS"}, name="create")
      *
      */
-    public function update(Request $request, ManagerRegistry $doctrine, int $id): Response
+    public function create(Repository $repository, Request $request): Response
     {
-        $entityManager = $doctrine->getManager();
-        $task = $entityManager->getRepository(Task::class)->find($id);
+        $repository->add($request->request->get('name'), $request->request->get('description'));
 
-        $form = $this->createFormBuilder($task)
-            ->add('name', TextType::class)
-            ->add('description', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Update Task'])
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        $entityManager->flush();
-
-        return $this->renderForm('edit-task.html.twig', ['form' => $form]);
+        return $this->redirect('/view-all');
     }
 
 
     /**
-     * @Route("/delete-task/{id}")
+     * @Route("/edit/{id}", name="edit")
      *
      */
-    public function delete(ManagerRegistry $doctrine, int $id, TaskRepository $repository): Response
+    public function edit(Repository $repository, int $id): Response
     {
-        $entityManager = $doctrine->getManager();
-        $task = $entityManager->getRepository(Task::class)->find($id);
+        return $this->render('edit-task.html.twig', ['task' => $repository->getOne($id)]);
+    }
 
-        $entityManager->remove($task);
-        $entityManager->flush();
-        return $this->render('home-page.html.twig', ['task' => $repository->findAll()]);
+
+    /**
+     * @Route("/update/{id}", methods={"POST", "OPTIONS"}, name="update")
+     *
+     */
+    public function update(Repository $repository, Request $request, int $id): Response
+    {
+        $name = $request->request->get('name');
+        $description = $request->request->get('description');
+
+        $repository->update(['name' => $name, 'description' => $description], $id);
+
+        return $this->redirect('/view-all');
+    }
+
+
+    /**
+     * @Route("/delete/{id}")
+     *
+     */
+    public function delete(Repository $repository, int $id): Response
+    {
+        $repository->delete($id);
+        return $this->redirect('/view-all');
     }
 }
