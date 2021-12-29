@@ -4,22 +4,27 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="mt-3 mb-3">To Do List</h1>
+                <h1 class="mt-3 header">To Do List</h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 todo-list">
                 {% for task in task %}
                     <div class="accordion" id="accordionPanelsStayOpenExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseOne"
+                                        aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseOne">
                                     {{ task.name }}
                                 </button>
                             </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                            <div id="panelsStayOpen-collapseOne"
+                                 class="accordion-collapse collapse show"
+                                 aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body">
-                                    <strong>{{ task.id }} {{ task.name }} </strong>
+                                    {{ task.id }} <strong> {{ task.name }} </strong>
                                     <div class="mt-3">
                                         {{ task.description }}
                                     </div>

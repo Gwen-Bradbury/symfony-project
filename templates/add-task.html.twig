@@ -4,19 +4,19 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="mt-3 mb-3">Add A Task</h1>
+                <h1 class="mt-3 header">Add A Task</h1>
             </div>
         </div>
-        <div class="row card-panel">
+        <div class="row card-panel todo-list">
             <div class="col-12">
                 <form method="post" action="create">
                     <div class="input-field col-12">
-                        <label class="mb-3" for="name">Task Name:</label>
+                        <label class="mb-3 label" for="name">Task Name:</label>
                         <input id="name" name="name" minlength="5" maxlength="50"
                                value="{{ task.name }}" type="text" class="validate" required>
                     </div>
                     <div class="input-field col-12">
-                        <label class="mb-3" for="description">Task Description:</label>
+                        <label class="mb-3 label" for="description">Task Description:</label>
                         <input id="description" name="description" minlength="5" maxlength="50"
                                value="{{ task.description }}" type="text" class="validate" required>
                     </div>

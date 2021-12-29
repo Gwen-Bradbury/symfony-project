@@ -1,0 +1,36 @@
+.nav-link {
+    color: #000;
+}
+
+.nav-link:hover {
+    color: #0033cc;
+}
+
+.btn,
+button a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn:hover,
+button a:hover{
+    color:#0033cc;
+    text-decoration: none;
+}
+
+.todo-list {
+    text-align: center;
+}
+
+@media only screen and (max-width: 400px){
+    .label {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 400px){
+    .header {
+        margin-bottom: 50px;
+    }
+}
